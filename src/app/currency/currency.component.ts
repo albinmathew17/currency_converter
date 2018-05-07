@@ -26,7 +26,6 @@ export class CurrencyComponent implements OnInit {
         this.inputBaseAmount = 0.00;
         this.inputAmount = "0.00";
         this.setInitialValues(data);
-        let outAmount = this.outBaseAmount*parseInt(this.inputAmount);
         this.outAmount = "0.00";
       })
 
@@ -44,17 +43,18 @@ export class CurrencyComponent implements OnInit {
     this.selectedBase = event;
     let symbols = this.currencyOptions.filter(code => code !== this.selectedBase)
     this.outArr = symbols;
-    this.selectedConvert = symbols[0];
-    if(this.selectedConvert == event){
-        this.initializeInputs(); 
-    }
     this.curreancyService.getExchangeRate(this.selectedBase,symbols.toString())
       .subscribe(data => {
         this.currencyMap = [];
+        if(this.selectedConvert == this.selectedBase){
+          this.selectedConvert = symbols[0];
+          this.initializeInputs();
+          this.outAmount = "0.00";
+        }else{
+          let outAmount = parseInt(this.inputAmount) * this.outBaseAmount;
+          this.outAmount = this.decimalPipe(outAmount);
+        }
         this.setInitialValues(data);
-        this.inputBaseAmount = this.inputBaseAmount;
-        let outAmount = parseInt(this.inputAmount) * this.outBaseAmount;
-        this.outAmount = this.decimalPipe(outAmount);
       })
 
   }
