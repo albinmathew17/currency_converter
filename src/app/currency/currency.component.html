@@ -4,20 +4,23 @@
       Currency Converter
     </h4>
     <div class="outContainer">
+      <label>Type in amount and select currency</label>
       <input [(ngModel)]='outAmount' type="number" (ngModelChange)="onOutAmountChange($event)">
       <select class="customSelect" [(ngModel)]='selectedConvert' (ngModelChange)="onOutSelect($event)">
         <option>{{selectedConvert}}</option>
         <option *ngFor="let i of outArr" [ngValue]=i>{{ i.code }}</option>
       </select>
-    </div>
-    <div>
-      <input [(ngModel)]='inputAmount' type="number" (ngModelChange)="onBaseAmountChange($event)">
+    </div>  
+    <div class="outContainer">
+      <label>Converted amount</label>
+      <input [(ngModel)]='inputAmount' [readonly]="true" type="number" (ngModelChange)="onBaseAmountChange($event)">
       <select [(ngModel)]='selectedBase' (ngModelChange)="onBaseSelect($event)">
         <option *ngFor="let i of currencyOptions" [ngValue]=i>{{ i }}</option>
       </select>
     </div>
     <div class="outerLink">
-      <a href="" target="blank">Disclaimer</a>
+      <a (click)="showDetails()">Disclaimer</a>
+      <span *ngIf="canShow" class="">The Conversion rates are obtained from a public api.</span>
     </div>
 
   </div>

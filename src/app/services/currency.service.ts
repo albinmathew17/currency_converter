@@ -16,17 +16,12 @@ export class CurrencyService {
     let body = res.json();
     return body;
   }
-  getExchangeRate(base:string): Observable<Currency[]>{
-    let apiUrl = 'https://api.fixer.io/latest?base='+base;
+  getExchangeRate(base:string,symbols:string): Observable<Currency[]>{
+    let apiUrl = 'https://api.fixer.io/latest?base='+base+'&symbols='+symbols;
     return this.http.get(apiUrl)
     // ...and calling .json() on the response to return data
     .map(this.extractData)
     //...errors if any
     .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
-
-  //   return Observable.fromPromise(fetch(apiUrl)
-  //     .then(res => res.json())
-  //     .then(data => data.rates));
-  // }
 }

@@ -2,14 +2,16 @@
     margin: auto;
     width: 300px;
     border: 2px solid rgb(133, 144, 133);
-    padding: 10px 5px 5px 5px;
+    padding: 10px 15px 10px 15px;
     text-align: center;
     background: #b3b5b50d;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #4D4D18;
 }
 select {
-    width: 30%;
+    width: 38.3%;
     padding: 9px 20px;
-    margin: 5px 0;
+    margin: 0;
     display: inline-block;
     border: 2px solid #ccc;
     border-radius: 3px;
@@ -21,9 +23,9 @@ select {
 }
 
 input[type=number] {
-    width: 45%;
+    width: 60%;
     padding: 9px 20px;
-    margin: 5px 0;
+    margin: 0 5px 0 0;
     display: inline-block;
     border: 2px solid #ccc;
     border-radius: 3px;
@@ -31,12 +33,34 @@ input[type=number] {
     box-sizing: border-box;
     font-size: 13px;
     height: 37px;
+    float: left;
 }
 .outerLink{
+    cursor: pointer;
     text-align: right;
-    margin-right: 18%;
-    color: blue;
+    color: BLUE;
+    margin: 5px 0 0 0;
+}
+.outerLink span {
+    display: block;
+    padding: 7px 0 0 0;
+    color: #4d4d4d;
+    font-size: 12px;
+    font-style: italic
 }
 .outContainer{
-    padding: 5px;
+    text-align: left;
+}
+.outContainer label {
+    float: left;
+    padding: 10px 0 7px;
+    text-align: left;
+    width: 100%
+}
+h4 {
+    color: #000;
+    margin: 0;
+    padding: 10px 0 5px;
+    font-weight: normal;
+    text-align: left;
 }

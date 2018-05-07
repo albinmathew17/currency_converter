@@ -11,59 +11,70 @@ export class CurrencyComponent implements OnInit {
   selectedBase: string = 'USD';
   selectedConvert: string = 'EUR';
   inputBaseAmount: number;
-  inputAmount: number;
-  outAmount: number;
+  inputAmount: string;
+  outAmount: string;
   outBaseAmount: number;
   currencyOptions: string[] = ['USD', 'CAD', 'EUR'];
   outArr = [];
   currencyMap = [];
+  canShow : boolean =false;
   constructor(private curreancyService: CurrencyService) { }
 
   ngOnInit() {
-    this.curreancyService.getExchangeRate(this.selectedBase)
+    this.curreancyService.getExchangeRate(this.selectedBase,'EUR,CAD')
       .subscribe(data => {
-        this.inputBaseAmount = 1;
-        this.inputAmount = 1;
+        this.inputBaseAmount = 0.00;
+        this.inputAmount = "0.00";
         this.setInitialValues(data);
-        this.outAmount = this.outBaseAmount;
+        let outAmount = this.outBaseAmount*parseInt(this.inputAmount);
+        this.outAmount = "0.00";
       })
 
   }
 
   onBaseAmountChange(event) {
-    this.outAmount = event * this.outBaseAmount;
+    this.outAmount = (event * this.outBaseAmount).toString();
 
   }
   onOutAmountChange(event) {
     this.outAmount = event;
-    this.inputAmount = event * (1 / this.outBaseAmount);
+    this.inputAmount = this.decimalPipe(event * (1 / this.outBaseAmount));
   }
   onBaseSelect(event) {
     this.selectedBase = event;
-    this.curreancyService.getExchangeRate(this.selectedBase)
+    let symbols = this.currencyOptions.filter(code => code !== this.selectedBase)
+    this.curreancyService.getExchangeRate(this.selectedBase,symbols.toString())
       .subscribe(data => {
         this.currencyMap = [];
         this.setInitialValues(data);
         this.inputBaseAmount = this.inputBaseAmount;
-        this.outAmount = this.inputAmount * this.outBaseAmount;
+        let outAmount = parseInt(this.inputAmount) * this.outBaseAmount;
+        this.outAmount = this.decimalPipe(outAmount);
       })
 
   }
   onOutSelect(event) {
     this.selectedConvert = event.code;
     this.outBaseAmount = event.rate;
-    this.outAmount = this.outBaseAmount * this.inputAmount;
+    let outAmount = this.outBaseAmount * parseInt(this.inputAmount);
+    this.outAmount = this.decimalPipe(outAmount);
   }
   setInitialValues(data) {
     Object.entries(data.rates).map((key, i) => {
+      if(key[0] == this.selectedConvert){
+        this.outBaseAmount = Number(key[1]);
+      }
       this.currencyMap.push({ 'code': key[0], 'rate': Number(key[1]) });
     });
-    this.outArr = this.currencyMap.filter(rate => rate.code !== this.selectedBase);
-    if(this.selectedConvert == this.selectedBase){
-      this.outBaseAmount = this.inputAmount;
-    }else{
-      this.outBaseAmount = this.outArr.filter(rates => rates.code === this.selectedConvert)[0].rate;
-    }
+    this.outArr = this.currencyMap.filter(rate => rate.code !== this.selectedConvert);
+  }
+
+  showDetails(){
+    this.canShow = !this.canShow;
+  }
+
+  decimalPipe(num: number): string {
+    return (Number(num) * 100 / 100).toFixed(2);
   }
 
 }
