@@ -24,4 +24,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 
 ## Live Demo
-      https://albinmathew17.github.io/currency_converter/
+   To view how it works, Please visit :  https://albinmathew17.github.io/currency_converter/
