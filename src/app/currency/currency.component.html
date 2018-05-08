@@ -1,27 +1,27 @@
-<div class="slds-m-top--large">
-  <div class="outer">
+<div class="slds-m-top--large container">
     <h4>
       Currency Converter
-    </h4>
-    <div class="outContainer">
-      <label>Type in amount and select currency</label>
-      <input [(ngModel)]='outAmount' type="number" (ngModelChange)="onOutAmountChange($event)">
-      <select class="customSelect" [(ngModel)]='selectedConvert' (ngModelChange)="onOutSelect($event)">
-        <option>{{selectedConvert}}</option>
-        <option *ngFor="let i of outArr" [ngValue]=i>{{ i.code }}</option>
-      </select>
-    </div>  
-    <div class="outContainer">
-      <label>Converted amount</label>
-      <input [(ngModel)]='inputAmount' [readonly]="true" type="number" (ngModelChange)="onBaseAmountChange($event)">
-      <select [(ngModel)]='selectedBase' (ngModelChange)="onBaseSelect($event)">
-        <option *ngFor="let i of currencyOptions" [ngValue]=i>{{ i }}</option>
-      </select>
+    </h4> 
+    <div class="slds-grid slds-grid_vertical-align-start outContainer">
+        <label>Type in amount and select currency</label>
+      <input [(ngModel)]='inputAmount'  placeholder="0.00" type="number" (ngModelChange)="onBaseAmountChange($event)">
+      <div class="slds-select_container">
+          <select [(ngModel)]='selectedBase' class="slds-select slds-theme--shade" (ngModelChange)="onBaseSelect($event)">
+              <option *ngFor="let i of currencyOptions" [ngValue]=i>{{ i }}</option>
+            </select>
+      </div>
     </div>
+    <div class="slds-grid slds-grid_vertical-align-start outContainer">
+        <label>Converted amount</label>
+        <input [(ngModel)]='outAmount' [readonly]="true" type="number" placeholder="0.00" (ngModelChange)="onOutAmountChange($event)">
+        <div class="slds-select_container">
+            <select class="customSelect" [(ngModel)]='selectedConvert' (ngModelChange)="onOutSelect($event)">
+                <option *ngFor="let i of currencyMap" [ngValue]=i.code>{{ i.code }}</option>
+              </select>
+        </div>
+      </div> 
     <div class="outerLink">
       <a (click)="showDetails()">Disclaimer</a>
       <span *ngIf="canShow" class="">The Conversion rates are obtained from a public api.</span>
     </div>
-
-  </div>
 </div>
