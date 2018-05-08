@@ -4,7 +4,7 @@
     </h4> 
     <div class="slds-grid slds-grid_vertical-align-start outContainer">
         <label>Type in amount and select currency</label>
-      <input [(ngModel)]='inputAmount'  placeholder="0.00" type="number" (ngModelChange)="onBaseAmountChange($event)">
+      <input [(ngModel)]='inputAmount' decimalPipe="true" placeholder="0.00" type="text" (ngModelChange)="onBaseAmountChange($event)">
       <div class="slds-select_container">
           <select [(ngModel)]='selectedBase' class="slds-select slds-theme--shade" (ngModelChange)="onBaseSelect($event)">
               <option *ngFor="let i of currencyOptions" [ngValue]=i>{{ i }}</option>
@@ -13,7 +13,7 @@
     </div>
     <div class="slds-grid slds-grid_vertical-align-start outContainer">
         <label>Converted amount</label>
-        <input [(ngModel)]='outAmount' [readonly]="true" type="number" placeholder="0.00" (ngModelChange)="onOutAmountChange($event)">
+        <input [(ngModel)]='outAmount' [readonly]="true" type="text" placeholder="0.00" (ngModelChange)="onOutAmountChange($event)">
         <div class="slds-select_container">
             <select class="customSelect" [(ngModel)]='selectedConvert' (ngModelChange)="onOutSelect($event)">
                 <option *ngFor="let i of currencyMap" [ngValue]=i.code>{{ i.code }}</option>

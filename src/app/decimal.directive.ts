@@ -1,0 +1,35 @@
+import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+
+@Directive({
+  selector: '[decimalPipe]'
+})
+
+
+export class DecimalPipe {
+    private regexp: RegExp = new RegExp(/^[0-9]+(\.[0-9]*){0,1}$/g);
+
+    private allowedKeys: Array<string> = [ 'Backspace', 'Delete', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown' ];
+
+    constructor(private elem: ElementRef) {
+    }
+
+    @HostListener('keydown', [ '$event' ])
+    onKeyDown(event: KeyboardEvent) {
+        if (this.allowedKeys.indexOf(event.key) !== -1) {
+            return;
+        }
+        
+        let value: string = this.elem.nativeElement.value;
+        if ((value.indexOf('.') != -1) &&
+            (value.substring(value.indexOf('.')).length > 2) &&
+            (event.which != 0 && event.which != 8)) 
+            {
+                event.preventDefault();
+            }
+        
+            let output: string = value.concat(event.key);
+            if (output && !String(output).match(this.regexp)) {
+                event.preventDefault();
+            }
+    }
+}

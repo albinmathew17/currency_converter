@@ -6,11 +6,13 @@ import {NglModule} from 'ng-lightning/ng-lightning';
 import { AppComponent } from './app.component';
 import { CurrencyService } from './services/currency.service';
 import { CurrencyComponent } from './currency/currency.component';
+import { DecimalPipe } from './decimal.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CurrencyComponent
+    CurrencyComponent,
+    DecimalPipe
   ],
   imports: [
     BrowserModule,
