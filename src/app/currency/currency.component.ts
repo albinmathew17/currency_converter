@@ -46,10 +46,10 @@ export class CurrencyComponent implements OnInit {
         this.setInitialValues(data)
         if(this.selectedConvert == this.selectedBase){
             this.outBaseAmount = 1;
-            this.outAmount = this.decimalPipe(parseInt(this.inputAmount) * 1);
+            this.outAmount = this.decimalPipe(parseFloat(this.inputAmount) * 1);
           }else{
             this.outBaseAmount = this.getRate(this.selectedConvert)
-            let outAmount = parseInt(this.inputAmount) * this.outBaseAmount;
+            let outAmount = parseFloat(this.inputAmount) * this.outBaseAmount;
             this.outAmount = this.decimalPipe(outAmount);
           }
       })
@@ -58,7 +58,7 @@ export class CurrencyComponent implements OnInit {
   onOutSelect(event) {
     this.selectedConvert = event;
     this.outBaseAmount = this.getRate(event);
-    let outAmount = this.outBaseAmount * parseInt(this.inputAmount);
+    let outAmount = this.outBaseAmount * parseFloat(this.inputAmount);
     this.outAmount = this.decimalPipe(outAmount);
   }
   setInitialValues(data) {
