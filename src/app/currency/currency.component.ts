@@ -49,7 +49,7 @@ export class CurrencyComponent implements OnInit {
             this.outAmount = this.decimalPipe(parseFloat(this.inputAmount) * 1);
           }else{
             this.outBaseAmount = this.getRate(this.selectedConvert)
-            let outAmount = parseFloat(this.inputAmount) * this.outBaseAmount;
+            let outAmount = this.inputAmount ? parseFloat(this.inputAmount) * this.outBaseAmount : 0.00;
             this.outAmount = this.decimalPipe(outAmount);
           }
       })
