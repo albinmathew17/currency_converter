@@ -15,7 +15,6 @@ export class DecimalPipe {
 
     @HostListener('keydown', [ '$event' ])
     onKeyDown(event: KeyboardEvent) {
-        console.log(event);
         if (this.allowedKeys.indexOf(event.key) !== -1) {
             return;
         }
